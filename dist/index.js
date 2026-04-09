@@ -166,4 +166,4 @@ main().catch((error) => {
     const errorMessage = error instanceof Error ? error.message : String(error);
     core.setFailed(`Unhandled error: ${errorMessage}`);
 });
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=index.js.map
