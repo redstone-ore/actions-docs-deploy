@@ -1,0 +1,41 @@
+name: 'Deploy to Server'
+description: 'Deploy ZIP artifacts to production server'
+inputs:
+  file:
+    description: 'ZIP file path to deploy'
+    required: true
+  resource_id:
+    description: 'Resource ID'
+    required: true
+  bearer_token:
+    description: 'Bearer token for authentication'
+    required: true
+  chunk_size:
+    description: 'Chunk size in MB (default: 10, max: 100)'
+    default: '10'
+    required: false
+  poll_interval:
+    description: 'Poll interval in seconds (default: 3)'
+    default: '3'
+    required: false
+  poll_timeout:
+    description: 'Poll timeout in seconds (default: 300)'
+    default: '300'
+    required: false
+outputs:
+  deploy_id:
+    description: 'Deployment ID'
+    value: ${{ steps.deploy.outputs.deploy_id }}
+  deploy_status:
+    description: 'Final deployment status'
+    value: ${{ steps.deploy.outputs.deploy_status }}
+  workflow_id:
+    description: 'Workflow ID if available'
+    value: ${{ steps.deploy.outputs.workflow_id }}
+  error_message:
+    description: 'Error message if failed'
+    value: ${{ steps.deploy.outputs.error_message }}
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
