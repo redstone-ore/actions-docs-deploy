@@ -49,7 +49,7 @@ export interface DeployRequest {
 }
 
 export interface DeployResponse {
-  deployId: string;
+  _id: string;
   [key: string]: unknown;
 }
 

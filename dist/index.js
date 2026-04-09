@@ -220,7 +220,7 @@ async function main() {
     let deployResponse;
     try {
         deployResponse = await client.deploy({ attachmentId: policy._id });
-        core.info(`Deployment started. Deploy ID: ${deployResponse.deployId}`);
+        core.info(`Deployment started. Deploy ID: ${deployResponse._id}`);
     }
     catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -229,8 +229,8 @@ async function main() {
     }
     core.info('Step 5: Polling deployment status...');
     const poller = new poller_1.Poller(client, inputs.pollInterval, inputs.pollTimeout);
-    const result = await poller.poll(deployResponse.deployId);
-    setOutputs(deployResponse.deployId, result.status, result.workflowId, result.errorMessage);
+    const result = await poller.poll(deployResponse._id);
+    setOutputs(deployResponse._id, result.status, result.workflowId, result.errorMessage);
     core.info('===========================================');
     if (result.status === 'SUCCESS') {
         core.info('  Deployment completed successfully!');

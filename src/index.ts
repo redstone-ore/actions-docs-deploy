@@ -122,7 +122,7 @@ async function main(): Promise<void> {
   let deployResponse;
   try {
     deployResponse = await client.deploy({ attachmentId: policy._id });
-    core.info(`Deployment started. Deploy ID: ${deployResponse.deployId}`);
+    core.info(`Deployment started. Deploy ID: ${deployResponse._id}`);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     core.setFailed(`Failed to start deployment: ${errorMessage}`);
@@ -131,10 +131,10 @@ async function main(): Promise<void> {
 
   core.info('Step 5: Polling deployment status...');
   const poller = new Poller(client, inputs.pollInterval, inputs.pollTimeout);
-  const result = await poller.poll(deployResponse.deployId);
+  const result = await poller.poll(deployResponse._id);
 
   setOutputs(
-    deployResponse.deployId,
+    deployResponse._id,
     result.status,
     result.workflowId,
     result.errorMessage
