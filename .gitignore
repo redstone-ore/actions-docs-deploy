@@ -2,7 +2,7 @@
 node_modules/
 
 # Build output
-dist/*.map
+lib/
 
 # Source maps (optional, can keep for debugging)
 *.map
